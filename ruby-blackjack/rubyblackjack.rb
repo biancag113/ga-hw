@@ -57,10 +57,10 @@ puts "+++++++++++++++++++++++++++++"
 puts "Welcome to Ruby Blackjack!"
 puts "+++++++++++++++++++++++++++++"
 
-puts "Type your name: "
+puts "Player, type your name here: "
 name = gets.chomp
 player = Player.new(name)
-computer = TheHouse.new("The House")
+dealer = TheHouse.new("The House")
 
 #Game Logic - Conditionals
 while !quit
@@ -71,32 +71,32 @@ while !quit
     end
 
     puts "#{player.name} has $#{player.bankroll} "
-    puts "#{computer.name} has $#{computer.bankroll}"
+    puts "#{dealer.name} has $#{dealer.bankroll}"
     puts "Type (c) to continue or (q) to quit"
 
     input = gets.chomp
     if input == "c"
         player.hand = deck.sample(2)
-        computer.hand = deck.sample(2)
+        dealer.hand = deck.sample(2)
         player.sum(player.hand)
-        computer.sum(computer.hand)
-        puts "You have #{player.total}, the house has #{computer.total}"
+        dealer.sum(dealer.hand)
+        puts "You have #{player.total}, the house has #{dealer.total}"
         if player.total == 21
             player.bankroll += 10
-            computer.bankroll -= 10 
+            dealer.bankroll -= 10 
             puts "You win!"
         elsif player.total > 21
-            computer.bankroll += 10
+            dealer.bankroll += 10
             player.bankroll -= 10
             puts "the house wins"
         else
 
-            if player.total > computer.total
+            if player.total > dealer.total
                 player.bankroll += 10
-                computer.bankroll -= 10 
+                dealer.bankroll -= 10 
                 puts "You get +$10 in our account"
-            elsif computer.total > player.total
-                computer.bankroll += 10
+            elsif dealer.total > player.total
+                dealer.bankroll += 10
                 player.bankroll -= 10
                 puts "The house wins"
             else 
